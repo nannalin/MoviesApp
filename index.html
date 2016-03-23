@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+	<style>
+		.poster {
+			float: left;
+			margin: 5px;
+		}
+
+		h1 {
+			color: #0000CD;
+		}
+
+		h4 {
+			color: 	#0099FF ;
+		}
+	</style>
+
+	<title>Movie Library</title>
+</head>
+<body ng-app="MoviesApp">
+	<div ng-controller="MovieController" class="container">
+		<h1 class="text-center">Movie Library</h1>
+
+		<h4 ng-show="favoriteMovies.length > 0" class="ng-hide">Favorite Movies</h4>
+
+		<table class="table table-striped">
+			<tbody>
+				<tr ng-repeat="movie in favoriteMovies">
+					<td>{{movie.title}}</td>
+					<td>{{movie.rate}}</td>
+					<td>{{movie.year}}</td>
+					<td>
+						<img ng-src="{{movie.urlPoster}}" class="poster" />
+						{{movie.plot}}
+					</td>
+					<td>
+						<button ng-click="detailsMovie(movie)" class="btn btn-primary">
+							<span class="glyphicon glyphicon-align-justify"></span>							
+						</button>
+
+						<button ng-click="removeFavoriteMovie(movie)" class="btn btn-danger">
+							<span class="glyphicon glyphicon-remove"></span>
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div ng-show="details" class="ng-hide">
+			<h4>Details</h4>
+			<p>
+				{{details.title}}</br>
+				Year: {{details.year}}</br>
+				Run time: {{details.runtime}}
+			</p>
+		</div>
+
+		<h4>Search Movies</h4>
+		<div class="input-group">
+		      <input ng-model="searchByTitle" type="text" class="form-control" placeholder="Search for...">
+		      <span class="input-group-btn">
+		        <button ng-click="searchMovies()" class="btn btn-default" type="button">Go!</button>
+		      </span>
+	    </div><!-- /input-group -->
+		
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Title</th>
+					<th>Rate</th>
+					<th>Year</th>
+					<th>Plot</th>
+					<th>&nbsp</th>
+				</tr>				
+			</thead>
+			<tbody>
+				<tr ng-repeat="movie in movies">
+					<td>{{movie.title}}</td>
+					<td>{{movie.rate}}</td>
+					<td>{{movie.year}}</td>
+					<td>					
+						<img ng-src="{{movie.urlPoster}}" class="poster" width="50" />
+						{{movie.plot}}
+					</td>
+					<td>
+						<button ng-click="removeMovie(movie)" class="btn btn-danger">
+							<span class="glyphicon glyphicon-remove"></span>
+						</button>
+
+						<button ng-click="addToFavorites(movie)" class="btn btn-info">
+							<span class="glyphicon glyphicon-star-empty"></span>
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<script src=" https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+	<script src="js/MoviesApiApp.js"></script>
+</body>
+</html>
